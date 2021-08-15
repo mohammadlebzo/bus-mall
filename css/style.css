@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+  }
+  body
+  {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  header
+  {
+    width: 100%;
+    height: 70px;
+    margin-top: 20px;
+  }
+  h1 
+  {
+    text-align: center;
+    font-size: 50px;
+  }
+  img 
+  {
+    width: 150px;
+    height: 150px;
+    border: 2px solid gold;
+  }
+  ul, ol
+  {
+    list-style-type: disc;
+    line-height: 20px;
+  }
+  button
+  {
+    width: 100px;
+    height: 30px;
+  }
+  span
+  {
+    color: gold;
+  }
+  #image-container 
+  {
+    border: 5px double black;
+    width: 800px;
+    margin: 0 auto;
+    height: 175px;
+    display: flex;
+    margin-bottom: 30px;
+  }
+  #leftImg, #rightImg, #midImg
+  {
+    width: 200px;
+    margin: 10px;
+    /* display: block; */
+    margin: 6px auto;
+    border-radius: 10px;
+    transition: 500ms;
+  }
+
+  #leftImg:hover, #rightImg:hover, #midImg:hover
+  {
+    opacity: 60%;
+  }
+  span 
+  {
+    margin-left: 50px;
+  }
+  #attempts 
+  {
+    margin-left: 20px;
+    font-size: 30px;
+  }
+  .glow
+  {
+    text-align: center;
+    font-size: 40px;
+    color: gold;
+    text-align: center;
+    animation: glow 1s ease-in-out infinite alternate;
+    margin-top: 30px;
+  }
+  @-webkit-keyframes glow 
+  {
+    from 
+    {
+      text-shadow: 0 0 1px gold, 0 0 2px gold, ;
+    }
+    
+    to 
+    {
+      text-shadow: 0 0 4px gold, 0 0 8px rgb(138, 121, 28), 0 0 12px rgb(138, 121, 28), 0 0 16px rgb(138, 121, 28), 0 0 20px rgb(138, 121, 28), 0 0 24px rgb(138, 121, 28), 0 0 28px rgb(138, 121, 28);
+    }
+  }
+  
