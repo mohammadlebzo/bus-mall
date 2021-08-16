@@ -5,6 +5,7 @@
   {
     margin-left: 5%;
     margin-right: 5%;
+    /* font-size: 50%; */
   }
   header
   {
@@ -27,6 +28,12 @@
   {
     list-style-type: disc;
     line-height: 20px;
+    width: 50%;
+    float: left;
+  }
+  ul li
+  {
+    font-size: 1em;
   }
   button
   {
@@ -82,12 +89,19 @@
   {
     from 
     {
-      text-shadow: 0 0 1px gold, 0 0 2px gold, ;
+      text-shadow: 0 0 4px gold, 0 0 8px rgb(138, 121, 28), 0 0 12px rgb(138, 121, 28), 0 0 16px rgb(138, 121, 28), 0 0 20px rgb(138, 121, 28), 0 0 24px rgb(138, 121, 28), 0 0 28px rgb(138, 121, 28);
     }
     
     to 
     {
-      text-shadow: 0 0 4px gold, 0 0 8px rgb(138, 121, 28), 0 0 12px rgb(138, 121, 28), 0 0 16px rgb(138, 121, 28), 0 0 20px rgb(138, 121, 28), 0 0 24px rgb(138, 121, 28), 0 0 28px rgb(138, 121, 28);
+      text-shadow: 0 0 8px gold, 0 0 12px rgb(138, 121, 28), 0 0 16px rgb(138, 121, 28), 0 0 20px rgb(138, 121, 28), 0 0 24px rgb(138, 121, 28), 0 0 28px rgb(138, 121, 28), 0 0 32px rgb(138, 121, 28);
     }
+  }
+
+  .controlCanvas
+  {
+    width: 50%;
+    float: right;
+    /* border: 1px solid black; */
   }
   
