@@ -6,6 +6,7 @@ let midImg = document.getElementById('midImg');
 let rightImg = document.getElementById('rightImg');
 let result = document.getElementById('results');
 let roundP = document.getElementById('round');
+let ctx = document.getElementById('myChart').getContext('2d');
 let productsImages = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 
                     'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 
                     'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 
@@ -18,6 +19,9 @@ let productsNames = [];
 let votesArr = [];
 let viewsArr = [];
 
+let votesArrTemp = [];
+let viewsArrTemp = [];
+
 let usedImg = [];
 
 let leftIndex;
@@ -25,8 +29,35 @@ let midIndex;
 let rightIndex;
 let vResult_Btn;
 
-let test = false;
+// let test = false;
 
+function saveToLocalStorage() {
+    let votesData = JSON.stringify(votesArr);
+    let viewsData = JSON.stringify(viewsArr);
+
+    localStorage.setItem('views', viewsData);
+    localStorage.setItem('votes', votesData);
+}
+function readFromLocalStorage() {
+    let stringViews = localStorage.getItem('views');
+    let stringVotes = localStorage.getItem('votes');
+
+    let normalViews = JSON.parse(stringViews);
+    let normalVotes = JSON.parse(stringVotes);
+
+    if (normalViews) 
+    {
+        viewsArrTemp = normalViews;
+    }
+    if (normalVotes) 
+    {
+        votesArrTemp = normalVotes;
+    }
+    // localStorage.clear();
+    console.log('votes', votesArrTemp);
+    console.log('views', viewsArrTemp);
+}
+readFromLocalStorage();
 
 function ProductImage(productName) 
 {
@@ -93,9 +124,9 @@ function renderImg()
     usedImg.push(midIndex);
     usedImg.push(rightIndex);
 
-    test = true;
-    console.log(usedImg);
-
+    // test = true;
+    // console.log(usedImg);
+    
     // console.log(products);
 }
 renderImg();
@@ -123,6 +154,7 @@ function clickHandler(event)
         }
         roundP.textContent = `Round ${attempt + 1}`
         renderImg();
+        // saveToLocalStorage()
         attempt++;
     } 
     else 
@@ -141,20 +173,50 @@ function clickHandler(event)
 
 function renderResult()
 {
+    let res1 = [];
+    let res2 = [];
+    // result.textContent = '';
+    for(let i = 0; i < products.length; i++)
+    {
+        if(typeof votesArrTemp[i] === 'undefined')
+        {
+            votesArrTemp[i] = 0;
+        }
+        if(typeof viewsArrTemp[i] === 'undefined')
+        {
+            viewsArrTemp[i] = 0;
+        }
+    }
     for (let i = 0; i < products.length; i++) 
     {
-        let liEl = document.createElement('li');
-        result.appendChild(liEl);
-        liEl.textContent = `${products[i].cProductName} had ${products[i].votes} votes, and was seen ${products[i].views} times.`;
+        
         votesArr.push(products[i].votes);
         viewsArr.push(products[i].views);
+
+        console.log('vo', votesArr[i]);
+        console.log('vi', viewsArr[i]);
+
+
+        votesArr[i] += votesArrTemp[i];
+        viewsArr[i] += viewsArrTemp[i];
+
+        console.log(`vote ${products[i].votes} + ${votesArrTemp[i]} = ${votesArr[i]}`);
+        console.log(`view ${products[i].views} + ${viewsArrTemp[i]} = ${viewsArr[i]}`);
+
+        let liEl = document.createElement('li');
+        result.appendChild(liEl);
+        liEl.textContent = `${products[i].cProductName} had ${votesArr[i]} votes, and was seen ${viewsArr[i]} times.`;
+        
         vResult_Btn.remove();
     }
+    saveToLocalStorage();
     chartRender();
+    // votesArrTemp = [];
+    // viewsArrTemp = [];
 }
 
 function chartRender() {
-    let ctx = document.getElementById('myChart').getContext('2d');
+    ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
