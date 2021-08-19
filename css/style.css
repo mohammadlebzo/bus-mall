@@ -1,7 +1,11 @@
 * {
     box-sizing: border-box;
   }
-  body
+  body{
+    background-color: rgb(34, 33, 33);
+
+  }
+  main
   {
     margin-left: 5%;
     margin-right: 5%;
@@ -11,7 +15,11 @@
   {
     width: 100%;
     height: 70px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    line-height: 70px;
+    background-color: purple;
+    box-shadow: 0 0 20px black ;
+    color: rgb(185, 185, 185);
   }
   h1 
   {
@@ -34,6 +42,7 @@
   ul li
   {
     font-size: 1em;
+    color: white;
   }
   button
   {
@@ -46,7 +55,7 @@
   }
   #image-container 
   {
-    border: 5px double black;
+    border: 5px double rgb(116, 98, 0);
     width: 800px;
     margin: 0 auto;
     height: 175px;
@@ -85,7 +94,7 @@
     animation: glow 1s ease-in-out infinite alternate;
     margin-top: 30px;
   }
-  @-webkit-keyframes glow 
+  @keyframes glow 
   {
     from 
     {
@@ -103,5 +112,10 @@
     width: 50%;
     float: right;
     /* border: 1px solid black; */
+  }
+  .pEl
+  {
+    margin-top: 30px;
+    color: rgb(221, 221, 221);
   }
   

@@ -1,3 +1,5 @@
+//// Global variables ::::
+//// Calling elements ::::
 let attemptEl = document.getElementById('attempts');
 let imgContainer = document.getElementById('image-container');
 let btnContainer = document.getElementById('btn-containder');
@@ -7,6 +9,8 @@ let rightImg = document.getElementById('rightImg');
 let result = document.getElementById('results');
 let roundP = document.getElementById('round');
 let ctx = document.getElementById('myChart').getContext('2d');
+
+//// Arrays ::::
 let productsImages = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 
                     'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 
                     'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 
@@ -29,8 +33,7 @@ let midIndex;
 let rightIndex;
 let vResult_Btn;
 
-// let test = false;
-
+//// Savaing to the local storage ::::
 function saveToLocalStorage() {
     let votesData = JSON.stringify(votesArr);
     let viewsData = JSON.stringify(viewsArr);
@@ -38,6 +41,7 @@ function saveToLocalStorage() {
     localStorage.setItem('views', viewsData);
     localStorage.setItem('votes', votesData);
 }
+//// Loading the local storage ::::
 function readFromLocalStorage() {
     let stringViews = localStorage.getItem('views');
     let stringVotes = localStorage.getItem('votes');
@@ -57,8 +61,11 @@ function readFromLocalStorage() {
     console.log('votes', votesArrTemp);
     console.log('views', viewsArrTemp);
 }
+
+//// Calling the readFromLocalStorage function to load teh local storage ::::
 readFromLocalStorage();
 
+//// Constructor ::::
 function ProductImage(productName) 
 {
     this.cProductName = productName.split('.')[0];
@@ -69,16 +76,19 @@ function ProductImage(productName)
     productsNames.push(this.cProductName);
 }
 
+//// Making new objects and filling them into the productsImages Array ::::
 for (let i = 0; i < productsImages.length; i++) 
 {
     new ProductImage(productsImages[i]);
 }
 
+//// Image Randomizer ::::
 function randomImage() 
 {
     return Math.floor(Math.random() * products.length);
 }
 
+//// Used to make sure that the image will not show up in the next iteration ::::
 function randControl()
 {
     while(leftIndex === usedImg[0] || leftIndex === usedImg[1] || leftIndex === usedImg[2])
@@ -95,6 +105,8 @@ function randControl()
     }
 }
 
+//// Used to render the image, there is some conditions too ::::
+//// Also it adds to the views in the object ::::
 function renderImg() 
 {
     leftIndex = randomImage();
@@ -123,18 +135,17 @@ function renderImg()
     usedImg.push(leftIndex);
     usedImg.push(midIndex);
     usedImg.push(rightIndex);
-
-    // test = true;
-    // console.log(usedImg);
-    
-    // console.log(products);
 }
+
+//// Calling the function that renders the image to the page ::::
 renderImg();
 
+//// Giving event listeners to variables ::::
 leftImg.addEventListener('click', clickHandler);
 midImg.addEventListener('click', clickHandler);
 rightImg.addEventListener('click', clickHandler);
 
+//// performs actions when one of the above variables is clicked ::::
 function clickHandler(event) 
 {
     if (attempt < maxAttempts) 
@@ -159,6 +170,7 @@ function clickHandler(event)
     } 
     else 
     {
+        //// Makes a button to perform an action ::::
         vResult_Btn = document.createElement('button');
         vResult_Btn.textContent = 'View Results';
         vResult_Btn.addEventListener('click', renderResult);
@@ -170,12 +182,12 @@ function clickHandler(event)
     }
 }
 
-
+//// The performed action when the result button is clicked ::::
 function renderResult()
 {
-    let res1 = [];
-    let res2 = [];
-    // result.textContent = '';
+    //// Used to check if the votesArrTemp array and the
+    //// viewsArrTemp array have a value of 'undefined', if yes 
+    //// it will be filled with zeros, otherwise go to the next block ::::
     for(let i = 0; i < products.length; i++)
     {
         if(typeof votesArrTemp[i] === 'undefined')
@@ -187,6 +199,9 @@ function renderResult()
             viewsArrTemp[i] = 0;
         }
     }
+
+    //// Adding the votesArrTemp and viewsArrTemp from the local storage info 
+    //// to the current votesArr and viewsArr, and also creating the li's ::::
     for (let i = 0; i < products.length; i++) 
     {
         
@@ -209,12 +224,13 @@ function renderResult()
         
         vResult_Btn.remove();
     }
+
+    //// Saving the new data to the local storage and rendering the chart ::::
     saveToLocalStorage();
     chartRender();
-    // votesArrTemp = [];
-    // viewsArrTemp = [];
 }
 
+//// The chart rendering function ::::
 function chartRender() {
     ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
